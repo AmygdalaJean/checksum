@@ -1,0 +1,21 @@
+clc;
+clear all;
+close all;
+
+
+%call function
+
+A = computeChecksum([1 1 0 0; 1 0 1 0]);
+disp(A);
+
+%checksum function used for error dectection
+
+function [chksum]=computeChecksum(codewordMatrix)
+B=bi2de(codewordMatrix,'left-msb'); %converts matrix to binary
+D=sum(B); %sums the rows
+power=length(codewordMatrix(1,:)); %uses row length as power
+a=2^power-1; %modulo arithmetic
+R=mod(D,a); %remainder value
+CS=mod(-R,a); %checksum value
+chksum=de2bi(CS,'left-msb'); %convers checksum back to binary
+end
